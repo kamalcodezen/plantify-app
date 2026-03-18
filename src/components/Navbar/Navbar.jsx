@@ -14,14 +14,19 @@ const Navbar = ({ navbarMenuFetch }) => {
     <nav className="flex  justify-between items-center py-3 ">
       <div className="flex gap-4 md:gap-0 items-center">
         <span onClick={() => setOpen(!open)}>
-          {open ? <Logs className="md:hidden cursor-pointer "></Logs> : <X className="md:hidden cursor-pointer"></X>}
+          {open ? (
+            <X className="md:hidden cursor-pointer"></X>
+          ) : (
+            <Logs className="md:hidden cursor-pointer "></Logs>
+          )}
           {
             <ul
-              className={`md:hidden absolute px-30 p-2 space-y-2 rounded-xl w-[50%] flex flex-col justify-center items-center backdrop-blur-lg bg-green-600/30 border border-white/30 shadow-2xl transform transition-all duration-1000 origin-top -left-[2px] rounded-tl-none cursor-pointer z-10
+              className={`md:hidden absolute px-30 p-2 space-y-2 rounded-xl w-[50%] flex flex-col justify-center items-center backdrop-blur-lg bg-green-600/70 border border-white/20 shadow-2xl transform transition-all duration-1000 origin-top -left-[2px] rounded-tl-none cursor-pointer z-10
+                text-yellow-200
             ${
               open
-                ? "-scale-x-150 opacity-0 -translate-y-100"
-                : "scale-100 translate-y-3.5 "
+                ? "scale-100 translate-y-3.5 "
+                : "-scale-x-150 opacity-0 -translate-y-100"
             } `}
             >
               {link}
@@ -34,7 +39,12 @@ const Navbar = ({ navbarMenuFetch }) => {
 
       <ul className="gap-4 hidden md:flex text-sm ">{link}</ul>
 
-      <a className="bg-amber-300  text-green-700 py-1 px-4 rounded-4xl" href="/button">Plant a Tree</a>
+      <a
+        className="bg-amber-300 text-xs  text-green-700 py-1 px-4 rounded-4xl"
+        href="/button"
+      >
+        Plant a Tree
+      </a>
     </nav>
   );
 };
