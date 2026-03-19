@@ -1,10 +1,24 @@
-import React, { use } from "react";
+import React, { Suspense, use, useEffect, useState } from "react";
 import CategoryAllButton from "./CategoryAllButton/CategoryAllButton";
+import AllTrees from "./ALLTreesSection/AllTrees";
 
 const AllTreeCard = ({ allCategoriesButton }) => {
-  const allCategoriesButtonRes = use(allCategoriesButton);
-  const categoriesButtonData = allCategoriesButtonRes.categories;
-  //   console.log(categoriesButtonData);
+  const res = use(allCategoriesButton);
+  const categoriesButtonData = res.categories;
+
+  //   Trees
+  const [plants, setPlants] = useState([]);
+  const handlePlantsApiFetch = async () => {
+    const res = await fetch("https://openapi.programming-hero.com/api/plants");
+    const data = await res.json();
+    // console.log(data.plants);
+    setPlants(data.plants);
+  };
+
+  // page load and data show
+  useEffect(() => {
+    handlePlantsApiFetch();
+  }, []);
 
   return (
     <div>
@@ -18,7 +32,10 @@ const AllTreeCard = ({ allCategoriesButton }) => {
         <div className="col-span-12 lg:col-span-2 bg-green-800/10 shadow-2xl backdrop-blur-lg space-y-2 ">
           <h3 className="font-semibold mb-3 text-xl">Categories</h3>
 
-          <button className="bg-green-600/60 py-1 px-3 w-full text-left rounded-sm cursor-pointer">
+          <button
+            className="bg-green-600/60 py-1 px-3 w-full text-left rounded-sm cursor-pointer"
+            onClick={handlePlantsApiFetch}
+          >
             All Trees
           </button>
           {categoriesButtonData.map((button) => (
@@ -31,13 +48,15 @@ const AllTreeCard = ({ allCategoriesButton }) => {
 
         {/* Trees */}
         <div className="col-span-12 lg:col-span-8">
-          <p>tree</p>
+          <AllTrees plants={plants}></AllTrees>
         </div>
+
         {/* cart section */}
         <div className="col-span-12 lg:col-span-2">
           <p>CArt</p>
         </div>
       </div>
+      {/* {handlePlantsApiFetch()} */}
     </div>
   );
 };
