@@ -1,6 +1,7 @@
 import React from "react";
 
-const AllTrees = ({ plants }) => {
+const AllTrees = ({ plants,handleClickAddToCart }) => {
+  
   // console.log(plants);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -32,7 +33,7 @@ const AllTrees = ({ plants }) => {
                   ${tree.price}
                 </span>
 
-                <button className="px-4 py-1.5 rounded-full bg-green-500 text-black font-semibold hover:bg-green-400 transition shadow-[0_0_15px_rgba(34,197,94,0.8)] cursor-pointer">
+                <button onClick={()=>handleClickAddToCart(tree.id,tree.name,tree.price,tree.image)} className="px-4 py-1.5 rounded-full bg-green-500 text-black font-semibold hover:bg-green-400 transition shadow-[0_0_15px_rgba(34,197,94,0.8)] cursor-pointer">
                   Add To Cart
                 </button>
               </div>

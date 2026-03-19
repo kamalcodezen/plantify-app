@@ -2,6 +2,7 @@ import React, { Suspense, use, useEffect, useState } from "react";
 import CategoryAllButton from "./CategoryAllButton/CategoryAllButton";
 import AllTrees from "./ALLTreesSection/AllTrees";
 import CategoriesButtonTreeCard from "./ALLTreesSection/CategoriesButtonTreeCard";
+import AddToCart from "./AddToCartSection/AddToCart";
 
 const AllTreeCard = ({ allCategoriesButton }) => {
   const res = use(allCategoriesButton);
@@ -21,15 +22,14 @@ const AllTreeCard = ({ allCategoriesButton }) => {
         setPlants(data.plants);
         setLoading(false);
       });
-    // console.log(data.plants);
   };
 
+  // individual category button click and api fetch
   const [categoriesPLant, setCategoriesPlants] = useState([]);
-  // individual button click and api fetch
   const onCategoryClick = (id) => {
     setLoading(true);
     setActiveCategory(id);
-    
+
     fetch(`https://openapi.programming-hero.com/api/category/${id}`)
       .then((res) => res.json())
       .then((data) => {
@@ -38,7 +38,13 @@ const AllTreeCard = ({ allCategoriesButton }) => {
       });
   };
 
-  // page load and data show
+  // Add to Cart
+  const [addCart, setAddCart] = useState([]);
+  const handleClickAddToCart = (id,price, name,image ) => {
+    setAddCart([...addCart, { id, price, name,image, quantity: 1 }]);
+  };
+
+  // ALl trees page load and data show
   useEffect(() => {
     handlePlantsApiFetch();
   }, []);
@@ -69,24 +75,33 @@ const AllTreeCard = ({ allCategoriesButton }) => {
           ))}
         </div>
 
-
         {/* All trees & Category Trees & loading section */}
-        <div className="col-span-12 lg:col-span-8">
+        <div className="col-span-12 lg:col-span-7">
           {loading ? (
             <div className="flex justify-center items-center h-40">
               <div className="w-12 h-12 border-4 border-green-400 border-t-transparent rounded-full animate-spin shadow-[0_0_20px_rgba(34,197,94,0.8)]"></div>
             </div>
           ) : activeCategory === "all" ? (
-            <AllTrees plants={plants} />
+            <AllTrees
+              plants={plants}
+              handleClickAddToCart={handleClickAddToCart}
+            ></AllTrees>
           ) : (
-            <CategoriesButtonTreeCard categoriesPLant={categoriesPLant} />
+            <CategoriesButtonTreeCard
+              categoriesPLant={categoriesPLant}
+            ></CategoriesButtonTreeCard>
           )}
         </div>
 
         {/* cart section */}
-        <div className="col-span-12 lg:col-span-2">
-          <p>CArt</p>
+        <div className="col-span-12 lg:col-span-3">
+          <AddToCart addCart={addCart}></AddToCart>
         </div>
+
+
+
+
+        
       </div>
       {/* {handlePlantsApiFetch()} */}
     </div>
