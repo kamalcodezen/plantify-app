@@ -3,11 +3,22 @@ import "./App.css";
 import Container from "./components/Container";
 import Navbar from "./components/Navbar/Navbar";
 import Banner from "./components/BannerSection/Banner";
+import AllTreeCard from "./components/MainTreeCardSection/AllTreeCard";
 
 // Nav Menu Api
 const navbarMenuFetch = fetch("/navbarApiData.json").then((res) => res.json());
 
+// ALl Category Button Api
+const categoriesButtonAPi = async () => {
+  const res = await fetch(
+    "https://openapi.programming-hero.com/api/categories",
+  );
+  return res.json();
+};
+
 function App() {
+  const allCategoriesButton = categoriesButtonAPi();
+
   return (
     <>
       {/* Header */}
@@ -27,7 +38,15 @@ function App() {
       {/* Main */}
       <main className="py-8">
         <Container>
-          <p>Main Content</p>
+          <Suspense
+            fallback={
+              <span className="loading loading-spinner loading-lg flex items-center justify-center mt-50 mx-auto text-green-400 font-medium"></span>
+            }
+          >
+            <AllTreeCard
+              allCategoriesButton={allCategoriesButton}
+            ></AllTreeCard>
+          </Suspense>
         </Container>
       </main>
 
