@@ -7,30 +7,37 @@ const AllTreeCard = ({ allCategoriesButton }) => {
   const res = use(allCategoriesButton);
   const categoriesButtonData = res.categories;
   const [activeCategory, setActiveCategory] = useState("all");
+  const [loading, setLoading] = useState(false);
 
   //   AllTrees Button APi fetch
   const [plants, setPlants] = useState([]);
   const handlePlantsApiFetch = () => {
+    setLoading(true);
     setActiveCategory("all");
+
     fetch("https://openapi.programming-hero.com/api/plants")
       .then((res) => res.json())
-      .then((data) => setPlants(data.plants));
+      .then((data) => {
+        setPlants(data.plants);
+        setLoading(false);
+      });
     // console.log(data.plants);
   };
 
   const [categoriesPLant, setCategoriesPlants] = useState([]);
   // individual button click and api fetch
   const onCategoryClick = (id) => {
+    setLoading(true);
     setActiveCategory(id);
+    
     fetch(`https://openapi.programming-hero.com/api/category/${id}`)
       .then((res) => res.json())
-      .then((data) => setCategoriesPlants(data.plants));
-      
+      .then((data) => {
+        setCategoriesPlants(data.plants);
+        setLoading(false);
+      });
   };
 
-
-
-  
   // page load and data show
   useEffect(() => {
     handlePlantsApiFetch();
@@ -62,14 +69,17 @@ const AllTreeCard = ({ allCategoriesButton }) => {
           ))}
         </div>
 
-        {/* Trees */}
+
+        {/* All trees & Category Trees & loading section */}
         <div className="col-span-12 lg:col-span-8">
-          {activeCategory == "all" ? (
-            <AllTrees plants={plants}></AllTrees>
+          {loading ? (
+            <div className="flex justify-center items-center h-40">
+              <div className="w-12 h-12 border-4 border-green-400 border-t-transparent rounded-full animate-spin shadow-[0_0_20px_rgba(34,197,94,0.8)]"></div>
+            </div>
+          ) : activeCategory === "all" ? (
+            <AllTrees plants={plants} />
           ) : (
-            <CategoriesButtonTreeCard
-              categoriesPLant={categoriesPLant}
-            ></CategoriesButtonTreeCard>
+            <CategoriesButtonTreeCard categoriesPLant={categoriesPLant} />
           )}
         </div>
 

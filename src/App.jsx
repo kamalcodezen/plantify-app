@@ -40,7 +40,9 @@ function App() {
         <Container>
           <Suspense
             fallback={
-              <span className="loading loading-spinner loading-lg flex items-center justify-center mt-50 mx-auto text-green-400 font-medium"></span>
+              <div className="flex justify-center items-center h-72">
+                <div className="w-12 h-12 border-4 border-green-400 border-t-transparent rounded-full animate-spin shadow-[0_0_20px_rgba(34,197,94,0.8)]"></div>
+              </div>
             }
           >
             <AllTreeCard
