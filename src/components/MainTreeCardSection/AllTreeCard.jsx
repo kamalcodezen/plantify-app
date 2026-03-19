@@ -1,20 +1,36 @@
 import React, { Suspense, use, useEffect, useState } from "react";
 import CategoryAllButton from "./CategoryAllButton/CategoryAllButton";
 import AllTrees from "./ALLTreesSection/AllTrees";
+import CategoriesButtonTreeCard from "./ALLTreesSection/CategoriesButtonTreeCard";
 
 const AllTreeCard = ({ allCategoriesButton }) => {
   const res = use(allCategoriesButton);
   const categoriesButtonData = res.categories;
+  const [activeCategory, setActiveCategory] = useState("all");
 
   //   AllTrees Button APi fetch
   const [plants, setPlants] = useState([]);
   const handlePlantsApiFetch = () => {
+    setActiveCategory("all");
     fetch("https://openapi.programming-hero.com/api/plants")
       .then((res) => res.json())
       .then((data) => setPlants(data.plants));
     // console.log(data.plants);
   };
 
+  const [categoriesPLant, setCategoriesPlants] = useState([]);
+  // individual button click and api fetch
+  const onCategoryClick = (id) => {
+    setActiveCategory(id);
+    fetch(`https://openapi.programming-hero.com/api/category/${id}`)
+      .then((res) => res.json())
+      .then((data) => setCategoriesPlants(data.plants));
+      
+  };
+
+
+
+  
   // page load and data show
   useEffect(() => {
     handlePlantsApiFetch();
@@ -41,23 +57,26 @@ const AllTreeCard = ({ allCategoriesButton }) => {
             <CategoryAllButton
               key={button.id}
               button={button}
+              onCategoryClick={onCategoryClick}
             ></CategoryAllButton>
           ))}
         </div>
 
-
         {/* Trees */}
         <div className="col-span-12 lg:col-span-8">
-          <AllTrees plants={plants}></AllTrees>
+          {activeCategory == "all" ? (
+            <AllTrees plants={plants}></AllTrees>
+          ) : (
+            <CategoriesButtonTreeCard
+              categoriesPLant={categoriesPLant}
+            ></CategoriesButtonTreeCard>
+          )}
         </div>
-
 
         {/* cart section */}
         <div className="col-span-12 lg:col-span-2">
           <p>CArt</p>
         </div>
-
-
       </div>
       {/* {handlePlantsApiFetch()} */}
     </div>
