@@ -4,7 +4,7 @@ const CategoryAllButton = ({ button }) => {
   // console.log(button);
   return (
     <div >
-      <button className="bg-green-600/60 py-1 px-3 w-full text-left rounded-sm cursor-pointer">{button.category_name}</button>
+      <button className="bg-gradient-to-r from-green-400/70 via-emerald-500/90 to-lime-400/60  py-1 px-3 w-full text-left rounded-sm cursor-pointe shadow-[0_0_30px_rgba(34,197,94,0.6)] text-black font-semibold hover:bg-green-400 hover:text-white cursor-pointer transition">{button.category_name}</button>
     </div>
   );
 };
