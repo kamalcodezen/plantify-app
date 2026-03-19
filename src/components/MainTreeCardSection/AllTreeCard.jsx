@@ -40,8 +40,8 @@ const AllTreeCard = ({ allCategoriesButton }) => {
 
   // Add to Cart
   const [addCart, setAddCart] = useState([]);
-  const handleClickAddToCart = (id,price, name,image ) => {
-    setAddCart([...addCart, { id, price, name,image, quantity: 1 }]);
+  const handleClickAddToCart = (id, price, name, image) => {
+    setAddCart([...addCart, { id, price, name, image, quantity: 1 }]);
   };
 
   // ALl trees page load and data show
@@ -95,13 +95,28 @@ const AllTreeCard = ({ allCategoriesButton }) => {
 
         {/* cart section */}
         <div className="col-span-12 lg:col-span-3">
-          <AddToCart addCart={addCart}></AddToCart>
+          {addCart.length === 0 ? (
+            <div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400">
+              {/* Inner */}
+              <div className="bg-black/90 backdrop-blur-xl rounded-2xl p-6 text-center shadow-[0_0_30px_rgba(34,197,94,0.6)]">
+                <h2 className="text-xl font-bold text-white mb-2">
+                  🛒 Your Cart is Empty
+                </h2>
+
+                <p className="text-gray-400 text-sm">
+                  Add some beautiful trees to your cart 🌿
+                </p>
+
+                {/* Button */}
+                <button className="mt-4 px-4 py-2 rounded-full bg-green-500 text-black font-semibold hover:bg-green-400 transition shadow-[0_0_15px_rgba(34,197,94,0.8)]">
+                  Explore Trees
+                </button>
+              </div>
+            </div>
+          ) : (
+            <AddToCart addCart={addCart}></AddToCart>
+          )}
         </div>
-
-
-
-
-        
       </div>
       {/* {handlePlantsApiFetch()} */}
     </div>

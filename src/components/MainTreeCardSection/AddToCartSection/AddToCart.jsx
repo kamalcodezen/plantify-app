@@ -56,7 +56,7 @@ const AddToCart = ({ addCart }) => {
               </button>
 
               <span className="text-green-400 font-bold">
-                ৳{cart.price * cart.quantity}
+                ${cart.price * cart.quantity}
               </span>
             </div>
           </div>
