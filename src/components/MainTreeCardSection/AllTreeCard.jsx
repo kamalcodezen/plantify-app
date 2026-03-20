@@ -181,7 +181,7 @@ const AllTreeCard = ({ allCategoriesButton }) => {
       <div className="grid grid-cols-12 gap-4">
 
         {/* category Button*/}
-        <div className="col-span-12 lg:col-span-2  shadow-2xl backdrop-blur-lg space-y-2 ">
+        <div className="col-span-12 lg:col-span-2 order-1 lg:order-none shadow-2xl backdrop-blur-lg space-y-2 ">
           <h3 className="font-semibold mb-3 text-xl">Categories</h3>
 
           {/* MOBILE DROPDOWN (design change hobe na) */}
@@ -222,7 +222,7 @@ const AllTreeCard = ({ allCategoriesButton }) => {
         </div>
 
         {/* All trees & Category Trees & loading section  and render*/}
-        <div className=" col-span-12 lg:col-span-7">
+        <div className=" col-span-12 lg:col-span-7 order-3 lg:order-none">
           {loading ? (
             <div className="flex justify-center items-center h-40">
               <div className="w-12 h-12 border-4 border-green-400 border-t-transparent rounded-full animate-spin shadow-[0_0_20px_rgba(34,197,94,0.8)]"></div>
@@ -241,7 +241,7 @@ const AllTreeCard = ({ allCategoriesButton }) => {
         </div>
 
         {/* cart section */}
-        <div className="col-span-12 lg:col-span-3 ">
+        <div className="col-span-12 lg:col-span-3 order-2 lg:order-none">
           {addCart.length === 0 ? (
             <div className="relative rounded-2xl p-[2px]  bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400">
               {/* Inner */}
