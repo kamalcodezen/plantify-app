@@ -1,11 +1,17 @@
-import React from 'react';
+import React from "react";
 
-const CategoriesButtonTreeCard = ({categoriesPLant}) => {
-    // console.log(categoriesPLant)
-    return (
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+const CategoriesButtonTreeCard = ({
+  categoriesPLant,
+  handleClickAddToCart,
+}) => {
+  // console.log(categoriesPLant)
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {categoriesPLant.map((categoryTree) => (
-        <div  className="relative group rounded-2xl p-[2px] bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400 " key={categoryTree.id}>
+        <div
+          className="relative group rounded-2xl p-[2px] bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400 "
+          key={categoryTree.id}
+        >
           {/* Inner Card */}
           <div className="bg-black/90 backdrop-blur-xl rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(34,197,94,0.6)] transition duration-500 group-hover:scale-[1.03]">
             {/* Image */}
@@ -22,7 +28,9 @@ const CategoriesButtonTreeCard = ({categoriesPLant}) => {
 
             {/* Content */}
             <div className="p-4 space-y-2 text-white">
-              <h3 className="text-lg font-bold tracking-wide">{categoryTree.name}</h3>
+              <h3 className="text-lg font-bold tracking-wide">
+                {categoryTree.name}
+              </h3>
 
               <p className="text-sm text-gray-300">{categoryTree.category}</p>
 
@@ -32,7 +40,17 @@ const CategoriesButtonTreeCard = ({categoriesPLant}) => {
                   ${categoryTree.price}
                 </span>
 
-                <button className="px-4 py-1.5 rounded-full bg-green-500 text-black font-semibold hover:bg-green-400 transition shadow-[0_0_15px_rgba(34,197,94,0.8)] cursor-pointer">
+                <button
+                  onClick={() =>
+                    handleClickAddToCart(
+                      categoryTree.id,
+                      categoryTree.price,
+                      categoryTree.name,
+                      categoryTree.image,
+                    )
+                  }
+                  className="px-4 py-1.5 rounded-full bg-green-500 text-black font-semibold hover:bg-green-400 transition shadow-[0_0_15px_rgba(34,197,94,0.8)] cursor-pointer"
+                >
                   Add To Cart
                 </button>
               </div>
@@ -41,7 +59,7 @@ const CategoriesButtonTreeCard = ({categoriesPLant}) => {
         </div>
       ))}
     </div>
-    );
+  );
 };
 
 export default CategoriesButtonTreeCard;

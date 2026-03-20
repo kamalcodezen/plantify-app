@@ -1,7 +1,7 @@
-import { CarTaxiFront } from "lucide-react";
+import { CarTaxiFront, Trash } from "lucide-react";
 import React from "react";
 
-const AddToCart = ({ addCart }) => {
+const AddToCart = ({ addCart,handleRemoveCart }) => {
   const addToCartData = addCart.map((cart) => {
     const axiosData = {
       id: cart.id,
@@ -49,8 +49,8 @@ const AddToCart = ({ addCart }) => {
 
             {/* Bottom */}
             <div className="flex justify-between items-center mt-3 border-t border-gray-700 pt-2 text-white">
-              <button className="text-red-400 text-sm hover:text-red-300 transition">
-                Remove
+              <button onClick={()=>handleRemoveCart(cart.id)} className="text-red-400 text-sm hover:text-red-300 transition cursor-pointer">
+                <Trash/>
               </button>
 
               <span className="text-green-400 font-bold">

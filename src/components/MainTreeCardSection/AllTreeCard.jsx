@@ -3,6 +3,9 @@ import CategoryAllButton from "./CategoryAllButton/CategoryAllButton";
 import AllTrees from "./ALLTreesSection/AllTrees";
 import CategoriesButtonTreeCard from "./ALLTreesSection/CategoriesButtonTreeCard";
 import AddToCart from "./AddToCartSection/AddToCart";
+// import { ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
+import "./AllTreeCard.css";
 
 const AllTreeCard = ({ allCategoriesButton }) => {
   const res = use(allCategoriesButton);
@@ -52,6 +55,44 @@ const AllTreeCard = ({ allCategoriesButton }) => {
     }
   };
 
+  // remove cart item
+  const handleRemoveCart = (id) => {
+    const removeCart = addCart.filter((item) => item.id != id);
+    setAddCart(removeCart);
+
+    toast.custom(
+      (t) => (
+        <div
+          className={`relative overflow-hidden flex items-center gap-4 px-5 py-3 rounded-xl 
+        bg-gradient-to-br from-[#0f0f0f] to-[#1a1a1a] border border-green-500/40 
+        shadow-[0_0_25px_rgba(34,197,94,0.4)] backdrop-blur-xl
+        transition-all duration-300
+        ${t.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}
+        >
+          {/* Glow */}
+          <div className="absolute inset-0 bg-green-500/10 blur-xl opacity-40"></div>
+
+          {/* Icon */}
+          <div className="text-2xl">🛒</div>
+
+          {/* Text */}
+          <div className="flex flex-col">
+            <span className="text-green-400 font-semibold text-lg">
+              Item removed
+            </span>
+            <span className="text-gray-400 text-xs">
+              Successfully removed from cart
+            </span>
+          </div>
+
+          {/* Progress bar */}
+          <div className="absolute bottom-0 left-0 h-[2px] w-full bg-green-500 animate-[progress_2s_linear]"></div>
+        </div>
+      ),
+      { duration: 2000 },
+    );
+  };
+
   // all total price
   const total = addCart.reduce((sum, item) => {
     return sum + Number(item.price) * item.quantity;
@@ -64,6 +105,8 @@ const AllTreeCard = ({ allCategoriesButton }) => {
 
   return (
     <div>
+      {/* <ToastContainer /> */}
+      <Toaster position="top-right" reverseOrder={false} />
       <h1 className="font-semibold text-[clamp(1.5rem,2vw,1.875rem)] text-center mb-6">
         Choose Your <span className="text-green-400">Trees</span>
       </h1>
@@ -88,7 +131,7 @@ const AllTreeCard = ({ allCategoriesButton }) => {
           ))}
         </div>
 
-        {/* All trees & Category Trees & loading section */}
+        {/* All trees & Category Trees & loading section  and render*/}
         <div className="col-span-12 lg:col-span-7">
           {loading ? (
             <div className="flex justify-center items-center h-40">
@@ -102,6 +145,7 @@ const AllTreeCard = ({ allCategoriesButton }) => {
           ) : (
             <CategoriesButtonTreeCard
               categoriesPLant={categoriesPLant}
+              handleClickAddToCart={handleClickAddToCart}
             ></CategoriesButtonTreeCard>
           )}
         </div>
@@ -127,7 +171,10 @@ const AllTreeCard = ({ allCategoriesButton }) => {
               </div>
             </div>
           ) : (
-            <AddToCart addCart={addCart}></AddToCart>
+            <AddToCart
+              addCart={addCart}
+              handleRemoveCart={handleRemoveCart}
+            ></AddToCart>
           )}
 
           <div className="rounded-2xl p-[2px]  bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400">
