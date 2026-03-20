@@ -34,7 +34,7 @@ function App() {
       </header>
 
       {/* Main */}
-      <main className="py- bg-black">
+      <main className="py- bg-black ">
         <Banner className="max-w-360 mx-auto px-4 sm:px-6 lg:px-8 "></Banner>
 
         <Container>

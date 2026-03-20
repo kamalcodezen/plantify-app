@@ -17,6 +17,21 @@ const Banner = () => {
       <div className="absolute top-[-50px] right-[-50px] w-72 h-72 bg-green-500/20 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-[-50px] left-[-50px] w-72 h-72 bg-lime-400/20 rounded-full blur-3xl animate-pulse"></div>
 
+
+      {/* 🔥 Floating particles */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <span
+            key={i}
+            className="absolute w-1 h-1 bg-green-400 rounded-full opacity-70 animate-pulse"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+            }}
+          ></span>
+        ))}
+      </div>
+
       {/* Grid */}
       <div className="relative grid grid-cols-1 md:grid-cols-3 items-center gap-8">
         
@@ -45,7 +60,7 @@ const Banner = () => {
           </p>
 
           {/*  Button */}
-          <button className="relative px-6 py-2 rounded-full bg-gradient-to-r from-green-400 to-lime-400 text-black font-semibold shadow-[0_0_20px_rgba(34,197,94,0.7)] hover:scale-105 transition duration-300">
+          <button className="relative px-6 py-2 rounded-full bg-gradient-to-r from-green-400 to-lime-400 text-black font-semibold shadow-[0_0_20px_rgba(34,197,94,0.7)] hover:scale-105 transition duration-300 cursor-pointer">
             Get Involved
           </button>
         </div>

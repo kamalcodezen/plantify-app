@@ -144,7 +144,6 @@ const AllTreeCard = ({ allCategoriesButton }) => {
     return sum + Number(item.price) * item.quantity;
   }, 0);
 
-
   // text animation useEffect
   useEffect(() => {
     const elements = document.querySelectorAll(".reveal");
@@ -166,11 +165,11 @@ const AllTreeCard = ({ allCategoriesButton }) => {
   }, []);
 
   return (
-    <div>
+    <div className="relative">
       <Toaster position="top-right" />
 
       {/* Heading */}
-      <h1 className="reveal text-4xl font-bold text-center text-3xl md:text-4xl font-bold leading-tight ">
+      <h1 className="reveal text-3xl font-bold text-center  md:text-4xl  leading-tight ">
         Choose Your{" "}
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-lime-400">
           Trees
@@ -255,7 +254,19 @@ const AllTreeCard = ({ allCategoriesButton }) => {
         </div>
       </div>
 
-
+      {/*  Floating particles */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(30)].map((_, i) => (
+          <span
+            key={i}
+            className="absolute w-1 h-1 bg-green-400 rounded-full opacity-70 blur-[1px]"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+            }}
+          ></span>
+        ))}
+      </div>
     </div>
   );
 };
