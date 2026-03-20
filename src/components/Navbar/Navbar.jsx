@@ -39,12 +39,9 @@ const Navbar = ({ navbarMenuFetch }) => {
 
       <ul className="gap-4 hidden md:flex text-sm ">{link}</ul>
 
-      <a
-        className="bg-amber-300 text-xs  text-green-700 py-1 px-4 rounded-4xl"
-        href="/button"
-      >
-        Plant a Tree
-      </a>
+    <button className="relative px-6 py-2 rounded-full bg-gradient-to-r from-green-400 to-lime-400 text-black font-semibold shadow-[0_0_20px_rgba(34,197,94,0.7)] hover:scale-105 transition duration-300">
+            Plant a Tree
+          </button>
     </nav>
   );
 };

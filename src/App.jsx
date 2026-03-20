@@ -31,12 +31,12 @@ function App() {
         </nav>
 
         {/* banner */}
-
-        <Banner className="max-w-360 mx-auto px-4 sm:px-6 lg:px-8 bg-[#cff0dc]"></Banner>
       </header>
 
       {/* Main */}
-      <main className="py-8">
+      <main className="py- bg-black">
+        <Banner className="max-w-360 mx-auto px-4 sm:px-6 lg:px-8 "></Banner>
+
         <Container>
           <Suspense
             fallback={
@@ -58,7 +58,6 @@ function App() {
           <p>Footer</p>
         </Container>
       </footer>
-      
     </>
   );
 }

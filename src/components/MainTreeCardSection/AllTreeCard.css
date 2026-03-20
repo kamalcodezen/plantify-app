@@ -1,0 +1,59 @@
+/* 🔥 Enter */
+@keyframes enter {
+  0% {
+    transform: translateY(-20px) scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* 🔥 Leave */
+@keyframes leave {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20px) scale(0.95);
+    opacity: 0;
+  }
+}
+
+.animate-enter {
+  animation: enter 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.animate-leave {
+  animation: leave 0.25s ease forwards;
+}
+
+/* 🔥 Progress */
+@keyframes progress {
+  0% { width: 100% }
+  100% { width: 0% }
+}
+
+.toast-progress {
+  animation: progress 2s linear forwards;
+}
+
+
+/* text animation use effect */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+

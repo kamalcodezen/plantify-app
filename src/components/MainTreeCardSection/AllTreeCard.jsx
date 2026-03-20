@@ -3,7 +3,6 @@ import CategoryAllButton from "./CategoryAllButton/CategoryAllButton";
 import AllTrees from "./ALLTreesSection/AllTrees";
 import CategoriesButtonTreeCard from "./ALLTreesSection/CategoriesButtonTreeCard";
 import AddToCart from "./AddToCartSection/AddToCart";
-// import { ToastContainer, toast } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
 import "./AllTreeCard.css";
 
@@ -44,52 +43,99 @@ const AllTreeCard = ({ allCategoriesButton }) => {
   // Add to Cart
   const [addCart, setAddCart] = useState([]);
   const handleClickAddToCart = (id, price, name, image) => {
-    const isExits = addCart.find((item) => item.id == id);
+    const isExits = addCart.find((item) => item.id === id);
+
     if (isExits) {
       const updateQuantity = addCart.map((item) =>
-        item.id == id ? { ...item, quantity: item.quantity + 1 } : item,
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
       );
       setAddCart(updateQuantity);
     } else {
       setAddCart([...addCart, { id, price, name, image, quantity: 1 }]);
     }
-  };
-
-  // remove cart item
-  const handleRemoveCart = (id) => {
-    const removeCart = addCart.filter((item) => item.id != id);
-    setAddCart(removeCart);
 
     toast.custom(
       (t) => (
         <div
-          className={`relative overflow-hidden flex items-center gap-4 px-5 py-3 rounded-xl 
-        bg-gradient-to-br from-[#0f0f0f] to-[#1a1a1a] border border-green-500/40 
+          className={`relative flex items-center gap-4 p-3 rounded-xl 
+        bg-gradient-to-br from-green-900/40 to-black border border-green-400/40
         shadow-[0_0_25px_rgba(34,197,94,0.4)] backdrop-blur-xl
-        transition-all duration-300
-        ${t.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}
+        ${t.visible ? "animate-enter" : "animate-leave"}`}
         >
-          {/* Glow */}
-          <div className="absolute inset-0 bg-green-500/10 blur-xl opacity-40"></div>
-
-          {/* Icon */}
-          <div className="text-2xl">🛒</div>
+          {/* Image */}
+          <img
+            src={image}
+            className="w-12 h-12 rounded-lg object-cover border border-green-400/30"
+          />
 
           {/* Text */}
           <div className="flex flex-col">
-            <span className="text-green-400 font-semibold text-lg">
-              Item removed
+            <span className="text-green-400 font-semibold text-sm">
+              Added to Cart
             </span>
-            <span className="text-gray-400 text-xs">
-              Successfully removed from cart
-            </span>
+            <span className="text-gray-300 text-xs">{name}</span>
           </div>
 
-          {/* Progress bar */}
-          <div className="absolute bottom-0 left-0 h-[2px] w-full bg-green-500 animate-[progress_2s_linear]"></div>
+          {/* Price */}
+          <div className="ml-auto text-green-400 font-bold text-sm">
+            ${price}
+          </div>
+
+          {/* Glow */}
+          <div className="absolute inset-0 bg-green-500/10 blur-xl opacity-30"></div>
+
+          {/* Progress */}
+          <div className="absolute bottom-0 left-0 h-[2px] w-full bg-green-400 toast-progress"></div>
         </div>
       ),
       { duration: 2000 },
+    );
+  };
+
+  // remove cart item
+  const handleRemoveCart = (id) => {
+    const removeItem = addCart.find((item) => item.id === id);
+    const updatedCart = addCart.filter((item) => item.id !== id);
+    setAddCart(updatedCart);
+
+    const toastId = toast.custom(
+      (t) => (
+        <div
+          className={`relative flex items-center gap-4 p-3 rounded-xl 
+        bg-gradient-to-br from-red-900/40 to-black border border-red-400/40
+        shadow-[0_0_25px_rgba(248,113,113,0.4)] backdrop-blur-xl
+        ${t.visible ? "animate-enter" : "animate-leave"}`}
+        >
+          {/* Image */}
+          <img
+            src={removeItem?.image}
+            className="w-12 h-12 rounded-lg border border-red-400/30"
+          />
+
+          {/* Text */}
+          <div className="flex flex-col">
+            <span className="text-red-400 font-semibold text-sm">
+              Item Removed
+            </span>
+            <span className="text-gray-400 text-xs">Removed from cart</span>
+          </div>
+
+          {/*  UNDO BUTTON */}
+          <button
+            onClick={() => {
+              setAddCart((item) => [...item, removeItem]);
+              toast.dismiss(t.id);
+            }}
+            className="ml-auto text-xs bg-red-400 text-black px-2 py-1 rounded hover:bg-red-300"
+          >
+            Undo
+          </button>
+
+          {/* Progress */}
+          <div className="absolute bottom-0 left-0 h-[2px] w-full bg-red-400 toast-progress"></div>
+        </div>
+      ),
+      { duration: 3000 },
     );
   };
 
@@ -98,6 +144,22 @@ const AllTreeCard = ({ allCategoriesButton }) => {
     return sum + Number(item.price) * item.quantity;
   }, 0);
 
+
+  // text animation useEffect
+  useEffect(() => {
+    const elements = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+        }
+      });
+    });
+
+    elements.forEach((el) => observer.observe(el));
+  }, []);
+
   // ALl trees page load and data show
   useEffect(() => {
     handlePlantsApiFetch();
@@ -105,11 +167,16 @@ const AllTreeCard = ({ allCategoriesButton }) => {
 
   return (
     <div>
-      {/* <ToastContainer /> */}
-      <Toaster position="top-right" reverseOrder={false} />
-      <h1 className="font-semibold text-[clamp(1.5rem,2vw,1.875rem)] text-center mb-6">
-        Choose Your <span className="text-green-400">Trees</span>
+      <Toaster position="top-right" />
+
+      {/* Heading */}
+      <h1 className="reveal text-4xl font-bold text-center text-3xl md:text-4xl font-bold leading-tight ">
+        Choose Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-lime-400">
+          Trees
+        </span>
       </h1>
+      <p className="reveal text-center mb-5">Grow a better future </p>
 
       {/* Plants */}
       <div className="grid grid-cols-12 gap-4">
@@ -165,7 +232,7 @@ const AllTreeCard = ({ allCategoriesButton }) => {
                 </p>
 
                 {/* Button */}
-                <button className="mt-4 px-4 py-2 rounded-full bg-green-500 text-black font-semibold hover:bg-green-400 transition shadow-[0_0_15px_rgba(34,197,94,0.8)]">
+                <button className="mt-4 px-4 py-2 rounded-full bg-green-500 text-black font-semibold hover:bg-green-400 transition shadow-[0_0_15px_rgba(34,197,94,0.8)] cursor-pointer">
                   Explore Trees
                 </button>
               </div>
@@ -187,6 +254,8 @@ const AllTreeCard = ({ allCategoriesButton }) => {
           </div>
         </div>
       </div>
+
+
     </div>
   );
 };
