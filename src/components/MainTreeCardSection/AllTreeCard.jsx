@@ -41,8 +41,21 @@ const AllTreeCard = ({ allCategoriesButton }) => {
   // Add to Cart
   const [addCart, setAddCart] = useState([]);
   const handleClickAddToCart = (id, price, name, image) => {
-    setAddCart([...addCart, { id, price, name, image, quantity: 1 }]);
+    const isExits = addCart.find((item) => item.id == id);
+    if (isExits) {
+      const updateQuantity = addCart.map((item) =>
+        item.id == id ? { ...item, quantity: item.quantity + 1 } : item,
+      );
+      setAddCart(updateQuantity);
+    } else {
+      setAddCart([...addCart, { id, price, name, image, quantity: 1 }]);
+    }
   };
+
+  // all total price
+  const total = addCart.reduce((sum, item) => {
+    return sum + Number(item.price) * item.quantity;
+  }, 0);
 
   // ALl trees page load and data show
   useEffect(() => {
@@ -57,7 +70,7 @@ const AllTreeCard = ({ allCategoriesButton }) => {
 
       {/* Plants */}
       <div className="grid grid-cols-12 gap-4">
-        {/* category */}
+        {/* category Button*/}
         <div className="col-span-12 lg:col-span-2  shadow-2xl backdrop-blur-lg space-y-2 ">
           <h3 className="font-semibold mb-3 text-xl">Categories</h3>
           <button
@@ -94,9 +107,9 @@ const AllTreeCard = ({ allCategoriesButton }) => {
         </div>
 
         {/* cart section */}
-        <div className="col-span-12 lg:col-span-3">
+        <div className="col-span-12 lg:col-span-3 ">
           {addCart.length === 0 ? (
-            <div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400">
+            <div className="relative rounded-2xl p-[2px]  bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400">
               {/* Inner */}
               <div className="bg-black/90 backdrop-blur-xl rounded-2xl p-6 text-center shadow-[0_0_30px_rgba(34,197,94,0.6)]">
                 <h2 className="text-xl font-bold text-white mb-2">
@@ -116,9 +129,17 @@ const AllTreeCard = ({ allCategoriesButton }) => {
           ) : (
             <AddToCart addCart={addCart}></AddToCart>
           )}
+
+          <div className="rounded-2xl p-[2px]  bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400">
+            <div className=" bg-black/90 backdrop-blur-xl rounded-2xl p-6 text-center shadow-[0_0_30px_rgba(34,197,94,0.6)] flex justify-between items-center  text-white">
+              <span className=" text-2xl font-bold">Total :</span>
+              <span className="text-green-400 text-2xl font-bold">
+                ${total}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
-      {/* {handlePlantsApiFetch()} */}
     </div>
   );
 };

@@ -2,14 +2,12 @@ import { CarTaxiFront } from "lucide-react";
 import React from "react";
 
 const AddToCart = ({ addCart }) => {
-
-
   const addToCartData = addCart.map((cart) => {
     const axiosData = {
       id: cart.id,
-      price: cart.name,
-      name: cart.price,
-      image:cart.image,
+      price: cart.price,
+      name: cart.name,
+      image: cart.image,
       quantity: cart.quantity,
     };
     return axiosData;
@@ -35,9 +33,9 @@ const AddToCart = ({ addCart }) => {
               {/* Info */}
               <div className="flex-1 text-white">
                 <h3 className="font-semibold">{cart.name}</h3>
-                <p className="text-sm text-gray-400">{cart.category}</p>
+               
 
-                <p className="text-green-400 font-bold">৳{cart.price}</p>
+                <p className="text-green-400 font-bold">${cart.price}</p>
               </div>
 
               {/* Quantity */}

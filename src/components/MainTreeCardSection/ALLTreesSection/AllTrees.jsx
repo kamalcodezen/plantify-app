@@ -1,12 +1,14 @@
 import React from "react";
 
-const AllTrees = ({ plants,handleClickAddToCart }) => {
-  
+const AllTrees = ({ plants, handleClickAddToCart }) => {
   // console.log(plants);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {plants.map((tree) => (
-        <div  className="relative group rounded-2xl p-[2px] bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400 " key={tree.id}>
+        <div
+          className="relative group rounded-2xl p-[2px] bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400 "
+          key={tree.id}
+        >
           {/* Inner Card */}
           <div className="bg-black/90 backdrop-blur-xl rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(34,197,94,0.6)] transition duration-500 group-hover:scale-[1.03]">
             {/* Image */}
@@ -33,7 +35,17 @@ const AllTrees = ({ plants,handleClickAddToCart }) => {
                   ${tree.price}
                 </span>
 
-                <button onClick={()=>handleClickAddToCart(tree.id,tree.name,tree.price,tree.image)} className="px-4 py-1.5 rounded-full bg-green-500 text-black font-semibold hover:bg-green-400 transition shadow-[0_0_15px_rgba(34,197,94,0.8)] cursor-pointer">
+                <button
+                  onClick={() =>
+                    handleClickAddToCart(
+                      tree.id,
+                      tree.price,
+                      tree.name,
+                      tree.image,
+                    )
+                  }
+                  className="px-4 py-1.5 rounded-full bg-green-500 text-black font-semibold hover:bg-green-400 transition shadow-[0_0_15px_rgba(34,197,94,0.8)] cursor-pointer"
+                >
                   Add To Cart
                 </button>
               </div>
