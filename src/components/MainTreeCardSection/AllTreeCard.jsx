@@ -183,7 +183,11 @@ const AllTreeCard = ({ allCategoriesButton }) => {
         <div className="col-span-12 lg:col-span-2  shadow-2xl backdrop-blur-lg space-y-2 ">
           <h3 className="font-semibold mb-3 text-xl">Categories</h3>
           <button
-            className="bg-gradient-to-r from-green-400/70 via-emerald-500/90 to-lime-400/60  py-1 px-3 w-full text-left rounded-sm shadow-[0_0_30px_rgba(34,197,94,0.6)] text-black font-semibold hover:bg-green-400 hover:text-white cursor-pointer transition "
+            className={`bg-gradient-to-r from-green-400/70 via-emerald-500/90 to-lime-400/60  py-1 px-3 w-full text-left rounded-sm shadow-[0_0_30px_rgba(34,197,94,0.6)] text-black font-semibold hover:bg-green-400 hover:text-white cursor-pointer transition ${
+              activeCategory === "all"
+                ? "bg-green-200 text-white "
+                : "text-black-300"
+            }`}
             onClick={handlePlantsApiFetch}
           >
             All Trees
@@ -193,6 +197,8 @@ const AllTreeCard = ({ allCategoriesButton }) => {
               key={button.id}
               button={button}
               onCategoryClick={onCategoryClick}
+                activeCategory={activeCategory}
+
             ></CategoryAllButton>
           ))}
         </div>

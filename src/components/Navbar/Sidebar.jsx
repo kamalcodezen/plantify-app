@@ -31,6 +31,7 @@ const Sidebar = ({ open, setOpen, navMenuData }) => {
               className="hover:text-green-400 transition cursor-pointer"
             >
               {menu.name}
+              
             </li>
           ))}
         </ul>
