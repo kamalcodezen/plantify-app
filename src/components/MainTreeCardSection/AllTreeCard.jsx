@@ -179,13 +179,32 @@ const AllTreeCard = ({ allCategoriesButton }) => {
 
       {/* Plants */}
       <div className="grid grid-cols-12 gap-4">
+
         {/* category Button*/}
         <div className="col-span-12 lg:col-span-2  shadow-2xl backdrop-blur-lg space-y-2 ">
           <h3 className="font-semibold mb-3 text-xl">Categories</h3>
+
+          {/* MOBILE DROPDOWN (design change hobe na) */}
+          <div className="lg:hidden mb-2">
+            <select
+              value={activeCategory}
+              onChange={(e) => onCategoryClick(e.target.value)}
+              className="w-full p-2 rounded border border-green-400 bg-black text-white bg-gradient-to-r from-green-400/70 via-emerald-500/90 to-lime-400/60  px-3 rounded-sm shadow-[0_0_30px_rgba(34,197,94,0.6)] text-black font-semibold hover:bg-green-400 hover:text-white cursor-pointer transition"
+            >
+              <option value="all">All Trees</option>
+
+              {categoriesButtonData.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.category_name}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/* all button asche api theke */}
           <button
-            className={`bg-gradient-to-r from-green-400/70 via-emerald-500/90 to-lime-400/60  py-1 px-3 w-full text-left rounded-sm shadow-[0_0_30px_rgba(34,197,94,0.6)] text-black font-semibold hover:bg-green-400 hover:text-white cursor-pointer transition ${
+            className={`hidden lg:block bg-gradient-to-r from-green-400/70 via-emerald-500/90 to-lime-400/60  py-1 px-3 w-full text-left rounded-sm shadow-[0_0_30px_rgba(34,197,94,0.6)] text-black font-semibold hover:bg-green-400 hover:text-white cursor-pointer transition ${
               activeCategory === "all"
-                ? "bg-green-200 text-white "
+                ? "bg-green-200 text-white scale-103 border border-green-400 "
                 : "text-black-300"
             }`}
             onClick={handlePlantsApiFetch}
@@ -197,14 +216,13 @@ const AllTreeCard = ({ allCategoriesButton }) => {
               key={button.id}
               button={button}
               onCategoryClick={onCategoryClick}
-                activeCategory={activeCategory}
-
+              activeCategory={activeCategory}
             ></CategoryAllButton>
           ))}
         </div>
 
         {/* All trees & Category Trees & loading section  and render*/}
-        <div className="col-span-12 lg:col-span-7">
+        <div className=" col-span-12 lg:col-span-7">
           {loading ? (
             <div className="flex justify-center items-center h-40">
               <div className="w-12 h-12 border-4 border-green-400 border-t-transparent rounded-full animate-spin shadow-[0_0_20px_rgba(34,197,94,0.8)]"></div>
@@ -260,7 +278,7 @@ const AllTreeCard = ({ allCategoriesButton }) => {
         </div>
       </div>
 
-      {/*  Floating particles */}
+      {/*  Floating particles  Background er jonno*/}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(30)].map((_, i) => (
           <span
