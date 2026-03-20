@@ -6,7 +6,7 @@ import "./Banner.css"
 
 const Banner = () => {
   return (
-    <section className="relative overflow-hidden py-19 m px-6 md:py-25 md:px-12  text-white">
+    <section className="relative overflow-hidden py-13 m px-6 md:py-25 md:px-12  text-white">
       
       {/*  Background Glow */}
       <div className="absolute inset-0 bg-gradient-to-br  from-green-500/10 via-transparent to-lime-400/10 blur-3xl"></div>
@@ -18,7 +18,7 @@ const Banner = () => {
       <div className="absolute bottom-[-50px] left-[-50px] w-72 h-72 bg-lime-400/20 rounded-full blur-3xl animate-pulse"></div>
 
 
-      {/* 🔥 Floating particles */}
+      {/*  Floating particles */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(20)].map((_, i) => (
           <span

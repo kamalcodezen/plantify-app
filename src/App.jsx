@@ -23,7 +23,12 @@ function App() {
     <>
       {/* Header */}
       <header>
-        <nav className="bg-gradient-to-r from-green-400/70 via-emerald-500/90 to-lime-400/60 backdrop-blur-lg">
+        <nav
+          className="relative fixed top-0 left-0 w-full z-50 py-3
+bg-black/30 backdrop-blur-3xl
+shadow-[0_0_30px_rgba(34,197,94,0.3)]
+transition-all duration-500"
+        >
           <Container>
             {/* Navbar */}
             <Navbar navbarMenuFetch={navbarMenuFetch}></Navbar>

@@ -1,47 +1,110 @@
-import React, { use, useState } from "react";
-import NavbarMenu from "./NavbarMenu";
+import React, { useEffect, useState } from "react";
 import { Logs, X } from "lucide-react";
-
-const Navbar = ({ navbarMenuFetch }) => {
-  const navMenuData = use(navbarMenuFetch);
+import "./NavBar.css"
+const Navbar = () => {
+  const [navMenuData, setNavMenuData] = useState([]);
   const [open, setOpen] = useState(false);
 
-  const link = navMenuData.map((menu) => (
-    <NavbarMenu key={menu.id} menu={menu}></NavbarMenu>
-  ));
+  useEffect(() => {
+    fetch("/navbarApiData.json")
+      .then((res) => res.json())
+      .then((data) => setNavMenuData(data));
+  }, []);
 
   return (
-    <nav className="flex  justify-between items-center py-3 ">
-      <div className="flex gap-4 md:gap-0 items-center">
-        <span onClick={() => setOpen(!open)}>
-          {open ? (
-            <X className="md:hidden cursor-pointer"></X>
-          ) : (
-            <Logs className="md:hidden cursor-pointer "></Logs>
-          )}
-          {
-            <ul
-              className={`md:hidden absolute px-30 p-2 space-y-2 rounded-xl w-[50%] flex flex-col justify-center items-center backdrop-blur-lg bg-green-600/70 border border-white/20 shadow-2xl transform transition-all duration-1000 origin-top -left-[2px] rounded-tl-none cursor-pointer z-10
-                text-yellow-200
-            ${
-              open
-                ? "scale-100 translate-y-3.5 "
-                : "-scale-x-150 opacity-0 -translate-y-100"
-            } `}
-            >
-              {link}
-            </ul>
-          }
-        </span>
+    <nav>
+  
+      <div className="relative max-w-7xl mx-auto px-6 flex justify-between items-center">
+        {/* LEFT */}
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setOpen(!open)}
+            className="md:hidden text-green-400"
+          >
+            {open ? <X /> : <Logs />}
+          </button>
 
-        <h1 className="text-xl font-semibold">Green Earth</h1>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-green-400 to-lime-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(34,197,94,1)] animate-pulse">
+            🌿 Green Earth
+          </h1>
+        </div>
+
+        {/* DESKTOP MENU */}
+        <ul className="hidden md:flex gap-8 text-gray-300">
+          {navMenuData.map((menu) => (
+            <li key={menu.id} className="relative cursor-pointer group text-sm">
+              <span className="group-hover:text-green-400 transition">
+                {menu.name}
+              </span>
+
+              <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-green-400 transition-all duration-300 group-hover:w-full shadow-[0_0_10px_rgba(34,197,94,1)]"></span>
+            </li>
+          ))}
+        </ul>
+
+        {/* BUTTON */}
+        <button className="hidden md:block relative px-6 py-2 rounded-full bg-gradient-to-r from-green-400 to-lime-400 text-black font-semibold overflow-hidden group">
+          <span className="absolute inset-0 bg-green-400 blur-xl opacity-40 group-hover:opacity-70 transition"></span>
+
+          <span className="relative z-10 group-hover:scale-110 transition">
+            Plant a Tree
+          </span>
+        </button>
       </div>
 
-      <ul className="gap-4 hidden md:flex text-sm ">{link}</ul>
+      {/* MOBILE MENU */}
+      {open && (
+        <div className="md:hidden fixed inset-0 z-[999]">
+          {/*  BACKDROP BLUR + DARK OVERLAY */}
+          <div
+            onClick={() => setOpen(false)}
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+          ></div>
 
-    <button className="relative px-6 py-2 rounded-full bg-gradient-to-r from-green-400 to-lime-400 text-black font-semibold shadow-[0_0_20px_rgba(34,197,94,0.7)] hover:scale-105 transition duration-300">
-            Plant a Tree
-          </button>
+          {/*  MENU PANEL */}
+          <div
+            className="absolute top-[70px] left-0 w-full
+    bg-black/40 backdrop-blur-2xl
+    border-t border-white/10
+    shadow-[0_20px_60px_rgba(0,0,0,0.6)]
+    animate-slideDown"
+          >
+            {/*  GLOW LAYER */}
+            <div className="absolute inset-0 -z-10 pointer-events-none">
+              <div className="absolute inset-0 bg-gradient-to-r from-green-400/20 via-lime-400/20 to-green-400/20 blur-3xl opacity-50"></div>
+            </div>
+
+            <ul className="flex flex-col items-center gap-6 py-8 text-gray-200">
+              {navMenuData.map((menu) => (
+                <li
+                  key={menu.id}
+                  className="text-lg font-medium relative group cursor-pointer"
+                >
+                  <span className="group-hover:text-green-400 transition duration-300">
+                    {menu.name}
+                  </span>
+
+                  {/* underline glow */}
+                  <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-green-400 transition-all duration-300 group-hover:w-full shadow-[0_0_10px_rgba(34,197,94,1)]"></span>
+                </li>
+              ))}
+
+              {/*  CTA BUTTON */}
+              <button
+                className="mt-4 px-4 py-2 rounded-full 
+        bg-gradient-to-r from-green-400 to-lime-400 
+        text-black font-semibold relative overflow-hidden group cursor-pointer"
+              >
+                <span className="absolute inset-0 bg-green-400 blur-xl opacity-40 group-hover:opacity-70 transition"></span>
+
+                <span className="relative z-10 group-hover:scale-110 transition">
+                   Plant a Tree
+                </span>
+              </button>
+            </ul>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
