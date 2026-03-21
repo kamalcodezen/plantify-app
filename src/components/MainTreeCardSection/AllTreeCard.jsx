@@ -6,13 +6,15 @@ import AddToCart from "./AddToCartSection/AddToCart";
 import toast, { Toaster } from "react-hot-toast";
 import "./AllTreeCard.css";
 
+
 const AllTreeCard = ({ allCategoriesButton }) => {
   const res = use(allCategoriesButton);
   const categoriesButtonData = res.categories;
-  const [activeCategory, setActiveCategory] = useState("all");
-  const [loading, setLoading] = useState(false);
 
-  //   AllTrees Button APi fetch
+  const [activeCategory, setActiveCategory] = useState("all"); //click korle state change hobe active button
+  const [loading, setLoading] = useState(false); //spinner
+
+  //   All Button APi fetch card asche
   const [plants, setPlants] = useState([]);
   const handlePlantsApiFetch = () => {
     setLoading(true);
@@ -179,12 +181,11 @@ const AllTreeCard = ({ allCategoriesButton }) => {
 
       {/* Plants */}
       <div className="grid grid-cols-12 gap-4">
-
         {/* category Button*/}
         <div className="col-span-12 lg:col-span-2 order-1 lg:order-none shadow-2xl backdrop-blur-lg space-y-2 ">
           <h3 className="font-semibold mb-3 text-xl">Categories</h3>
 
-          {/* MOBILE DROPDOWN (design change hobe na) */}
+          {/* MOBILE DROPDOWN all api button (design change hobe na) */}
           <div className="lg:hidden mb-2">
             <select
               value={activeCategory}
@@ -200,6 +201,7 @@ const AllTreeCard = ({ allCategoriesButton }) => {
               ))}
             </select>
           </div>
+
           {/* all button asche api theke */}
           <button
             className={`hidden lg:block bg-gradient-to-r from-green-400/70 via-emerald-500/90 to-lime-400/60  py-1 px-3 w-full text-left rounded-sm shadow-[0_0_30px_rgba(34,197,94,0.6)] text-black font-semibold hover:bg-green-400 hover:text-white cursor-pointer transition ${
@@ -221,7 +223,7 @@ const AllTreeCard = ({ allCategoriesButton }) => {
           ))}
         </div>
 
-        {/* All trees & Category Trees & loading section  and render*/}
+        {/* All trees & Category Trees & loading section  and render  Main section*/}
         <div className=" col-span-12 lg:col-span-7 order-3 lg:order-none">
           {loading ? (
             <div className="flex justify-center items-center h-40">
@@ -238,6 +240,16 @@ const AllTreeCard = ({ allCategoriesButton }) => {
               handleClickAddToCart={handleClickAddToCart}
             ></CategoriesButtonTreeCard>
           )}
+
+          {/* about section */}
+
+          <h1 className="reveal text-3xl font-bold text-center  md:text-4xl  leading-tight  mt-20">
+            About the{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-lime-400">
+              Campaign
+            </span>
+          </h1>
+
         </div>
 
         {/* cart section */}

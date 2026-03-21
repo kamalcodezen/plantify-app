@@ -4,6 +4,9 @@ import Container from "./components/Container";
 import Navbar from "./components/Navbar/Navbar";
 import Banner from "./components/BannerSection/Banner";
 import AllTreeCard from "./components/MainTreeCardSection/AllTreeCard";
+import About from "./components/AboutSection/AboutSection";
+import aboutImg from "./assets/about.png";
+import Impact from "./components/ImpactSection/Impact";
 
 // Nav Menu Api
 const navbarMenuFetch = fetch("/navbarApiData.json").then((res) => res.json());
@@ -54,6 +57,13 @@ transition-all duration-500"
               allCategoriesButton={allCategoriesButton}
             ></AllTreeCard>
           </Suspense>
+
+          {/* About */}
+          <div>
+            <About aboutImg={aboutImg} />
+          </div>
+
+       
         </Container>
       </main>
 
