@@ -7,6 +7,7 @@ import AllTreeCard from "./components/MainTreeCardSection/AllTreeCard";
 import About from "./components/AboutSection/AboutSection";
 import aboutImg from "./assets/about.png";
 import Impact from "./components/ImpactSection/Impact";
+import Footer from "./components/FooterSection/Footer";
 
 // Nav Menu Api
 const navbarMenuFetch = fetch("/navbarApiData.json").then((res) => res.json());
@@ -63,16 +64,13 @@ transition-all duration-500"
             <About aboutImg={aboutImg} />
           </div>
 
+          {/* Impact section */}
           <Impact></Impact>
+
+          {/*Footer  section */}
+          <Footer></Footer>
         </Container>
       </main>
-
-      {/* Footer */}
-      <footer className="">
-        <Container>
-          <p>Footer</p>
-        </Container>
-      </footer>
     </>
   );
 }
