@@ -170,6 +170,7 @@ const AllTreeCard = ({ allCategoriesButton }) => {
     <div className="relative">
       <Toaster position="top-right" />
 
+
       {/* Heading */}
       <h1 className="reveal text-3xl font-bold text-center  md:text-4xl  leading-tight ">
         Choose Your{" "}

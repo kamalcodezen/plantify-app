@@ -35,10 +35,10 @@ const CategoriesButtonTreeCard = ({
               <p className="text-sm text-gray-300">{categoryTree.category}</p>
 
               {/* Price + Button */}
-              <div className="flex justify-between items-center mt-3">
-                <span className="text-green-400 font-bold text-xl drop-shadow-[0_0_10px_rgba(34,197,94,0.8)]">
+              <div className="flex flex-wrap justify-between items-center mt-3">
+                <p className="text-green-400 font-bold text-xl drop-shadow-[0_0_10px_rgba(34,197,94,0.8)]">
                   ${categoryTree.price}
-                </span>
+                </p>
 
                 <button
                   onClick={() =>

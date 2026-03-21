@@ -3,34 +3,35 @@ import { Logs, X } from "lucide-react";
 import "./NavBar.css";
 import Sidebar from "./Sidebar";
 
-const Navbar = () => {
+const Navbar = ({ navbarMenuFetch }) => {
   const [navMenuData, setNavMenuData] = useState([]);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    fetch("/navbarApiData.json")
-      .then((res) => res.json())
-      .then((data) => setNavMenuData(data));
-  }, []);
+    navbarMenuFetch.then((data) => setNavMenuData(data));
+  }, [navbarMenuFetch]);
 
   return (
-    <nav>
-      <div className="relative max-w-7xl mx-auto px-6 flex justify-between items-center">
+    <nav className="relative z-50">
+
+      <div className="relative  px-6 flex justify-between items-center py-2">
+
         {/* LEFT */}
-        <div className="flex items-center gap-4 cursor-pointer">
-          <span
-            onClick={() => setOpen(!open)}
-            className="md:hidden text-green-400"
-          >
-            {open ? <X></X> : <Logs></Logs>}
+        <div className="flex items-center gap-4">
+          <span onClick={() => setOpen(!open)} className="md:hidden text-green-400">
+            {open ? <X /> : <Logs />}
           </span>
 
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-green-400 to-lime-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(34,197,94,1)] animate-pulse">
+          <h1 className="text-2xl font-bold 
+          bg-gradient-to-r from-green-400 to-lime-400 
+          bg-clip-text text-transparent
+          drop-shadow-[0_0_20px_rgba(34,197,94,1)]
+          animate-pulse">
             🌿 Green Earth
           </h1>
         </div>
 
-        {/* DESKTOP MENU */}
+        {/* MENU */}
         <ul className="hidden md:flex gap-8 text-gray-300">
           {navMenuData.map((menu) => (
             <li key={menu.id} className="relative cursor-pointer group text-sm">
@@ -44,14 +45,17 @@ const Navbar = () => {
         </ul>
 
         {/* BUTTON */}
-        <button className="hidden sm:flex px-6 py-2 rounded-full bg-gradient-to-r from-green-400 to-lime-400 text-black font-semibold shadow-[0_0_20px_rgba(34,197,94,0.7)] hover:scale-105 transition duration-300 cursor-pointer">
+        <button className="hidden sm:flex px-6 py-2 rounded-full 
+        bg-gradient-to-r from-green-400 to-lime-400 
+        text-black font-semibold 
+        shadow-[0_0_20px_rgba(34,197,94,0.7)] 
+        hover:scale-105 transition duration-300">
           Plant a Tree
         </button>
+
       </div>
 
-  {/* SIDEBAR CALL */}
       <Sidebar open={open} setOpen={setOpen} navMenuData={navMenuData} />
-
     </nav>
   );
 };

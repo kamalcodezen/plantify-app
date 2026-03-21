@@ -6,7 +6,7 @@ import "./Banner.css"
 
 const Banner = () => {
   return (
-    <section className="relative overflow-hidden py-13 m px-6 md:py-25 md:px-12  text-white">
+    <section className="relative overflow-hidden py-11 m px-6 md:py-25 md:px-12  text-white">
       
       {/*  Background Glow */}
       <div className="absolute inset-0 bg-gradient-to-br  from-green-500/10 via-transparent to-lime-400/10 blur-3xl"></div>

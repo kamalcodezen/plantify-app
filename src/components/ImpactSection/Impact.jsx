@@ -26,9 +26,10 @@ const Impact = () => {
 
   return (
     <section className="relative py-16 px-6 md:px-12 text-white overflow-hidden">
-
-      {/* Glow BG */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-transparent to-lime-400/10 blur-3xl"></div>
+      
+  {/* Glow Balls */}
+      <div className="absolute top-[-50px] left-[-50px] w-72 h-72 bg-green-500/20 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-[-50px] right-[-50px] w-72 h-72 bg-lime-400/20 rounded-full blur-3xl animate-pulse"></div>
 
       <div className="relative grid grid-cols-1 md:grid-cols-4 gap-6 text-center z-10">
 

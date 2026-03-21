@@ -12,7 +12,7 @@ import Footer from "./components/FooterSection/Footer";
 // Nav Menu Api
 const navbarMenuFetch = fetch("/navbarApiData.json").then((res) => res.json());
 
-// ALl Category Button Api
+// Category API
 const categoriesButtonAPi = async () => {
   const res = await fetch(
     "https://openapi.programming-hero.com/api/categories",
@@ -24,54 +24,44 @@ function App() {
   const allCategoriesButton = categoriesButtonAPi();
 
   return (
-    <>
-      {/* Header */}
+    <div className="min-h-screen">
+      {/* HEADER */}
       <header>
-        <nav
-          className="relative  top-0 left-0  z-10 py-3
-bg-black/30 backdrop-blur-3xl
-shadow-[0_0_30px_rgba(34,197,94,0.3)]
-transition-all duration-500"
-        >
+        {/* Navbar */}
+        <nav className="relative top-0 left-0 z-10 py-3  backdrop-blur-3xl">
           <Container>
-            {/* Navbar */}
-            <Navbar navbarMenuFetch={navbarMenuFetch}></Navbar>
+            <Navbar navbarMenuFetch={navbarMenuFetch} />
           </Container>
         </nav>
-
-        {/* banner */}
       </header>
 
-      {/* Main */}
-      <main className="py- bg-black ">
-        <Banner className="max-w-360 mx-auto px-4 sm:px-6 lg:px-8 "></Banner>
+      {/* MAIN */}
+      <main>
+        <Banner />
 
         <Container>
+          {/* All Trees Card */}
           <Suspense
             fallback={
               <div className="flex justify-center items-center h-72">
-                <div className="w-12 h-12 border-4 border-green-400 border-t-transparent rounded-full animate-spin shadow-[0_0_20px_rgba(34,197,94,0.8)]"></div>
+                <div className="w-12 h-12 border-4 border-green-400 border-t-transparent rounded-full animate-spin"></div>
               </div>
             }
           >
-            <AllTreeCard
-              allCategoriesButton={allCategoriesButton}
-            ></AllTreeCard>
+            <AllTreeCard allCategoriesButton={allCategoriesButton} />
           </Suspense>
 
           {/* About */}
-          <div>
-            <About aboutImg={aboutImg} />
-          </div>
+          <About aboutImg={aboutImg} />
 
-          {/* Impact section */}
-          <Impact></Impact>
+          {/* Impact */}
+          <Impact />
 
-          {/*Footer  section */}
-          <Footer></Footer>
+          {/* Footer */}
+          <Footer />
         </Container>
       </main>
-    </>
+    </div>
   );
 }
 
