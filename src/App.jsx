@@ -63,7 +63,7 @@ transition-all duration-500"
             <About aboutImg={aboutImg} />
           </div>
 
-       
+          <Impact></Impact>
         </Container>
       </main>
 
